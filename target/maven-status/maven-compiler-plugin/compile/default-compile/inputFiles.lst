@@ -1,0 +1,16 @@
+/home/rc/Desktop/Smart_Room/api/src/main/java/com/ies/smartroom/api/controllers/ResourceREST.java
+/home/rc/Desktop/Smart_Room/api/src/main/java/com/ies/smartroom/api/controllers/AuthenticationController.java
+/home/rc/Desktop/Smart_Room/api/src/main/java/com/ies/smartroom/api/authentication/PBKDF2Encoder.java
+/home/rc/Desktop/Smart_Room/api/src/main/java/com/ies/smartroom/api/authentication/model/Role.java
+/home/rc/Desktop/Smart_Room/api/src/main/java/com/ies/smartroom/api/authentication/model/AuthResponse.java
+/home/rc/Desktop/Smart_Room/api/src/main/java/com/ies/smartroom/api/model/User.java
+/home/rc/Desktop/Smart_Room/api/src/main/java/com/ies/smartroom/api/repositories/UserInterface.java
+/home/rc/Desktop/Smart_Room/api/src/main/java/com/ies/smartroom/api/service/AuthenticationService.java
+/home/rc/Desktop/Smart_Room/api/src/main/java/com/ies/smartroom/api/authentication/CORSFilter.java
+/home/rc/Desktop/Smart_Room/api/src/main/java/com/ies/smartroom/api/authentication/WebSecurityConfig.java
+/home/rc/Desktop/Smart_Room/api/src/main/java/com/ies/smartroom/api/authentication/model/AuthRequest.java
+/home/rc/Desktop/Smart_Room/api/src/main/java/com/ies/smartroom/api/authentication/JWTUtil.java
+/home/rc/Desktop/Smart_Room/api/src/main/java/com/ies/smartroom/api/APIAppplication.java
+/home/rc/Desktop/Smart_Room/api/src/main/java/com/ies/smartroom/api/authentication/AuthenticationManager.java
+/home/rc/Desktop/Smart_Room/api/src/main/java/com/ies/smartroom/api/authentication/SecurityContextRepository.java
+/home/rc/Desktop/Smart_Room/api/src/main/java/com/ies/smartroom/api/authentication/model/Message.java
