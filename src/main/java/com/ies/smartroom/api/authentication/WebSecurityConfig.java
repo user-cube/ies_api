@@ -44,7 +44,7 @@ public class WebSecurityConfig {
 				.pathMatchers(HttpMethod.OPTIONS).permitAll()
 				.pathMatchers("/login").permitAll()
 				.pathMatchers("/swagger").permitAll()
-				.pathMatchers("/swagger-ui.html").permitAll()
+				.pathMatchers("*/swagger-ui.html").permitAll()
 				.anyExchange().authenticated()
 				.and().build();
 	}
