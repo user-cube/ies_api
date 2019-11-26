@@ -16,15 +16,14 @@ public class Receiver {
 
     @Bean
     public ConnectionFactory connectionFactory() {
-        CachingConnectionFactory connectionFactory = new CachingConnectionFactory("amqp://rniqsthq:LTcMEkPr-dN63CAETa0x5jDOM2S_Zm1H@gopher.rmq.cloudamqp.com/rniqsthq");
-        connectionFactory.setUsername("rniqsthq");
-        connectionFactory.setPassword("LTcMEkPr-dN63CAETa0x5jDOM2S_Zm1H");
-        connectionFactory.setVirtualHost("rniqsthq");
-        connectionFactory.setPort(1883);
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
+        connectionFactory.setUri("amqp://rniqsthq:oEncQ4eBhISeQn-BAxkyJ7OHyRfgR9BN@gopher.rmq.cloudamqp.com/rniqsthq");
+        connectionFactory.setRequestedHeartBeat(30);
+        connectionFactory.setConnectionTimeout(30000);
         return connectionFactory;
     }
 
-    @RabbitListener(queues = "gen_ata")
+    @RabbitListener(queues = "gen_data")
     public void processOrder(String data) {
         Document doc = Document.parse(data);
         if (doc.containsKey("temp"))
