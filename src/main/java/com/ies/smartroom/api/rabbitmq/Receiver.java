@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Receiver {
 
+
     public MongoWorker worker;
 
     public Receiver(){
@@ -18,7 +19,7 @@ public class Receiver {
 
     @Bean
     public ConnectionFactory connectionFactory() {
-        return new CachingConnectionFactory("deti-engsoft-02.ua.pt",5672);
+        return new CachingConnectionFactory("amqp://rniqsthq:LTcMEkPr-dN63CAETa0x5jDOM2S_Zm1H@gopher.rmq.cloudamqp.com/rniqsthq",5672);
     }
 
     @RabbitListener(queues = "hello")
