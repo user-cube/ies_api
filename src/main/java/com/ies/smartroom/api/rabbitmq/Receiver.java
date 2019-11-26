@@ -18,14 +18,13 @@ public class Receiver {
 
     @Bean
     public ConnectionFactory connectionFactory() {
-        return new CachingConnectionFactory("amqp://rniqsthq:LTcMEkPr-dN63CAETa0x5jDOM2S_Zm1H@gopher.rmq.cloudamqp.com/rniqsthq",1883);
+        return new CachingConnectionFactory("deti-engsoft-02.ua.pt",5672);
     }
 
     @RabbitListener(queues = "hello")
     @RabbitListener(queues = "hello1")
     @RabbitListener(queues = "hello3")
     public void processOrder(String data) {
-        System.out.println("Received "+ data);
         Document doc = Document.parse(data);
         if (doc.containsKey("temp"))
             worker.insertTemperature(doc);

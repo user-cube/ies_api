@@ -3,7 +3,6 @@ package com.ies.smartroom.api.controllers;
 
 import com.ies.smartroom.api.authentication.CredentialsdAuthenticationToken;
 import com.ies.smartroom.api.authentication.JWTUtil;
-import com.ies.smartroom.api.authentication.PBKDF2Encoder;
 import com.ies.smartroom.api.authentication.model.AuthRequest;
 import com.ies.smartroom.api.authentication.model.AuthResponse;
 import com.ies.smartroom.api.authentication.model.Message;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
@@ -27,9 +25,6 @@ public class AuthenticationController {
 
     @Autowired
     private JWTUtil jwtUtil;
-
-    @Autowired
-    private PBKDF2Encoder passwordEncoder;
 
     @Autowired
     private UserService userService;
@@ -44,7 +39,7 @@ public class AuthenticationController {
             );
         } catch (Exception e) {
             return Mono.just(
-                    new ResponseEntity<String>("Unauthenticated", HttpStatus.UNAUTHORIZED)
+                    new ResponseEntity<>("Unauthenticated", HttpStatus.UNAUTHORIZED)
             );
         }
     }
@@ -60,7 +55,7 @@ public class AuthenticationController {
             return Mono.just(ResponseEntity.ok("Successful Logout"));
         }
         return Mono.just(
-                new ResponseEntity<String>("Unauthenticated", HttpStatus.UNAUTHORIZED)
+                new ResponseEntity<>("Unauthenticated", HttpStatus.UNAUTHORIZED)
         );
     }
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
@@ -76,7 +71,7 @@ public class AuthenticationController {
             return Mono.just(ResponseEntity.ok(new Message(authentication.toString())));
         }
         return Mono.just(
-                new ResponseEntity<String>("Unauthenticated", HttpStatus.UNAUTHORIZED)
+                new ResponseEntity<>("Unauthenticated", HttpStatus.UNAUTHORIZED)
         );
     }
 }
