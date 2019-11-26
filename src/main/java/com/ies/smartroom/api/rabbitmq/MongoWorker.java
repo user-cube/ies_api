@@ -21,7 +21,7 @@ public class MongoWorker {
     private MongoCollection<Document> access;
 
     public MongoWorker(){
-        MongoClient mongoClient = new MongoClient("deti-engsoft-02.ua.pt");
+        MongoClient mongoClient = new MongoClient("mongodb+srv://smart_user:W2Nx6xmAtnzK2Zxa@cluster0-wq6zj.mongodb.net/test?retryWrites=true&w=majority");
         MongoDatabase database = mongoClient.getDatabase("smartroom");
         temperature = database.getCollection("temperature");
         co2 = database.getCollection("co2");
