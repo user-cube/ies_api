@@ -13,6 +13,7 @@ Aliado a uma dashboard todos os dados podem ser analisados em gráficos intuitiv
 ## Repositórios de referência:
 * [Repostório de referência](https://github.com/user-cube/Smart_Room)
 * [Frontend](https://github.com/user-cube/ies_frontend)
+* [Backend](https://github.com/user-cube/ies_api)
 
 ### Justificação da utilização de vários repostórios
 Tal como foi definido na arquitetura do projeto, dissemos que íamos criar uma pwa baseada na aplicação web, para a criação de uma pwa, a Google exige:
