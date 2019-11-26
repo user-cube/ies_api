@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MongoWorker {
 
-    @Value("${spring.data.mongodb.host}")
+    @Value("${spring.data.mongodb.uri}")
     private String host;
 
     @Value("${spring.data.mongodb.database}")
