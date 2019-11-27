@@ -43,8 +43,11 @@ public class WebSecurityConfig {
 				.authorizeExchange()
 				.pathMatchers(HttpMethod.OPTIONS).permitAll()
 				.pathMatchers("/login").permitAll()
-				.pathMatchers("/swagger").permitAll()
 				.pathMatchers("/swagger-ui.html").permitAll()
+				.pathMatchers("/webjars/**").permitAll()
+				.pathMatchers("/swagger-resources/**").permitAll()
+				.pathMatchers("/swagger").permitAll()
+				.pathMatchers("/v2/api-docs").permitAll()
 				.anyExchange().authenticated()
 				.and().build();
 	}
