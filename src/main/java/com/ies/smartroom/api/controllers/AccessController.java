@@ -22,7 +22,7 @@ public class AccessController {
     private AccessService accessService;
 
     @RequestMapping(value = "/today", method = RequestMethod.GET)
-    public Mono<ResponseEntity<?>> accessNow(Authentication authentication) {
+    public Mono<ResponseEntity<?>> getAccessOfToday(Authentication authentication) {
         if (authentication.isAuthenticated()) {
             Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
             long home = Long.valueOf(String.valueOf(obj));
@@ -35,7 +35,7 @@ public class AccessController {
     }
 
     @RequestMapping(value = "/getByDateRange", method = RequestMethod.GET)
-    public Mono<ResponseEntity<?>> accessByRange(@RequestParam String from, @RequestParam String to, Authentication authentication) {
+    public Mono<ResponseEntity<?>> getAccessByDateRange(@RequestParam String from, @RequestParam String to, Authentication authentication) {
         if (authentication.isAuthenticated()) {
             Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
             long home = Long.valueOf(String.valueOf(obj));
@@ -48,7 +48,7 @@ public class AccessController {
     }
 
     @RequestMapping(value = "/lastWeek", method = RequestMethod.GET)
-    public Mono<ResponseEntity<?>> AccessLastWeek(Authentication authentication) {
+    public Mono<ResponseEntity<?>> getAccessOfLastWeek(Authentication authentication) {
         if (authentication.isAuthenticated()) {
             Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
             long home = Long.valueOf(String.valueOf(obj));
