@@ -99,7 +99,7 @@ public abstract class SensorController {
         if (authentication.isAuthenticated()) {
             Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
             long home = Long.valueOf(String.valueOf(obj));
-            List<Average> average = sensorService.getAverageDate(from, to, home);
+            List<Average> average = sensorService.getAverageRange(from, to, home);
             return Mono.just(
                     ResponseEntity.ok(average)
             );
@@ -138,7 +138,6 @@ public abstract class SensorController {
                 new ResponseEntity<>("Login is Needed", HttpStatus.OK)
         );
     }
-
     @RequestMapping(value = "/averageToday", method = RequestMethod.GET)
     public Mono<ResponseEntity<?>> getAverageOfToday(Authentication authentication) {
         if (authentication.isAuthenticated()) {

@@ -20,6 +20,7 @@ public class MongoWorker {
     private MongoCollection<Document> temperature;
     private MongoCollection<Document> co2;
     private MongoCollection<Document> access;
+    private MongoCollection<Document> humidity;
 
     public MongoWorker(){
         MongoClientURI uri = new MongoClientURI("mongodb://smart_user:W2Nx6xmAtnzK2Zxa@cluster0-shard-00-00-wq6zj.mongodb.net:27017,cluster0-shard-00-01-wq6zj.mongodb.net:27017,cluster0-shard-00-02-wq6zj.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority");
@@ -28,6 +29,7 @@ public class MongoWorker {
         temperature = database.getCollection("temperature");
         co2 = database.getCollection("co2");
         access = database.getCollection("access");
+        humidity = database.getCollection("humidity");
     }
 
     void insertTemperature(Document json){
@@ -41,4 +43,11 @@ public class MongoWorker {
     void insertAccess(Document json){
         access.insertOne(json);
     }
+
+    void insertHumidity(Document json){
+        humidity.insertOne(json);
+    }
+
+
 }
+

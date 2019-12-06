@@ -1,17 +1,20 @@
 package com.ies.smartroom.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ies.smartroom.api.entities.internal.Sensor;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+
 @Data
 @ToString
-@Document(collection="access")
-public class Access {
-
+@AllArgsConstructor
+@Document(collection = "humidity")
+public class Humidity implements Sensor {
     @Id
     @JsonIgnore
     private String id;
@@ -21,16 +24,20 @@ public class Access {
     private String room;
     @Field("timestamp")
     private String timestamp;
-    @Field("user")
-    private String user;
-    @Field("origin")
-    private String origin;
-    @Field("cart_id")
-    private String cart_id;
-    @Field("action")
-    private String action;
+    @Field("humidity")
+    private double humidity;
 
-    public String getTimestamp() {
-        return timestamp;
+    public String getDate() {
+        return this.timestamp.split(" ")[0];
+    }
+
+    @Override
+    @JsonIgnore
+    public double getValue() {
+        return this.humidity;
+    }
+
+    public String getTime() {
+        return this.timestamp.split(" ")[1];
     }
 }

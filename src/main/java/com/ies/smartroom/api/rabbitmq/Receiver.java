@@ -25,6 +25,7 @@ public class Receiver {
 
     @RabbitListener(queues = "gen_data")
     public void processOrder(String data) {
+        System.out.println(data);
         Document doc = Document.parse(data);
         if (doc.containsKey("temp"))
             worker.insertTemperature(doc);
@@ -32,5 +33,8 @@ public class Receiver {
             worker.insertCo2(doc);
         else if (doc.containsKey("user"))
             worker.insertAccess(doc);
+        else if (doc.containsKey("humidity")){
+            worker.insertHumidity(doc);
+        }
     }
 }

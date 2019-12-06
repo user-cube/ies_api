@@ -73,7 +73,7 @@ public abstract class SensorService {
         return getByDateRange(from, to, home);
     }
 
-    public List<Average> getAverageDate(String from, String to, long home) {
+    public List<Average> getAverageRange(String from, String to, long home) {
         LocalDate dateTo;
         try {
             dateTo = LocalDate.parse(to);
@@ -123,7 +123,7 @@ public abstract class SensorService {
         LocalDate today = LocalDate.now();
         String to = today.toString();
         String from = today.minusDays(7).toString();
-        return getAverageDate(from, to, home);
+        return getAverageRange(from, to, home);
     }
 
     public Average getAverageDay(String day, long home) {
