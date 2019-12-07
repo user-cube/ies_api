@@ -1,4 +1,4 @@
-package com.ies.smartroom.api;
+package com.ies.smartroom.api.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.config.ResourceHandlerRegistry;

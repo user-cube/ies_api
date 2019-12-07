@@ -6,7 +6,19 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.convert.ConfigurableTypeInformationMapper;
+import org.springframework.data.convert.TypeInformationMapper;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
+import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
+import org.springframework.data.mongodb.core.convert.MongoTypeMapper;
+import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class MongoWorker {
@@ -47,7 +59,6 @@ public class MongoWorker {
     void insertHumidity(Document json){
         humidity.insertOne(json);
     }
-
 
 }
 

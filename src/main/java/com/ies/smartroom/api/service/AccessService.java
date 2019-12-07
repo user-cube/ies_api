@@ -1,19 +1,27 @@
 package com.ies.smartroom.api.service;
 
 import com.ies.smartroom.api.entities.Access;
+import com.ies.smartroom.api.entities.Credential;
 import com.ies.smartroom.api.repositories.AccessRepository;
+import com.ies.smartroom.api.repositories.CredentialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.HTMLDocument;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ListIterator;
 
 @Service
 public class AccessService {
 
     @Autowired
     private AccessRepository accessRepository;
+
+    @Autowired
+    private CredentialRepository credentialRepository;
+
 
     public List<Access> findAll(long home) {
         return accessRepository.findByHome(home);
@@ -55,6 +63,21 @@ public class AccessService {
     private Timestamp StringToStamp(String date){
         String tDate = date +" 00:00:00";
         return Timestamp.valueOf(tDate);
+    }
+    public List<Access> getUnauthorizedAcess(long home){
+        return accessRepository.findLastUnauthorized(home);
+    }
+
+    public Credential checkCredentials(long home, String cart_id){
+         ListIterator<Credential> credentialListIterator = credentialRepository.findByCredetialAndHome(home, cart_id).listIterator();
+        if (credentialListIterator.hasNext())return credentialListIterator.next()
+                ;
+        return null;
+    }
+
+    public Credential SaveCredential(Credential credential){
+        Credential credentialSave = credentialRepository.save(credential);
+        return credentialSave;
     }
 
 }
