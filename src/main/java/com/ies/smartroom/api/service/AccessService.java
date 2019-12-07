@@ -2,6 +2,7 @@ package com.ies.smartroom.api.service;
 
 import com.ies.smartroom.api.entities.Access;
 import com.ies.smartroom.api.repositories.AccessRepository;
+import com.ies.smartroom.api.websocket.SocketClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,11 @@ public class AccessService {
 
     @Autowired
     private AccessRepository accessRepository;
+    private SocketClient socket = new SocketClient();
+
+    public void notification(String message){
+        socket.send(message);
+    }
 
     public List<Access> findAll(long home) {
         return accessRepository.findByHome(home);
@@ -24,7 +30,6 @@ public class AccessService {
         try {
             String aux_start = StringToStamp(date_start).toString();
             String aux_end = StringToStamp(date_end).toString();
-            System.out.println(aux_start+" "+aux_end);
             return accessRepository.findByDate(home,aux_start,aux_end);
         } catch (Exception e) {
             return null;

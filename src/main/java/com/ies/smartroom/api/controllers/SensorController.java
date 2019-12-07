@@ -95,11 +95,11 @@ public abstract class SensorController {
     }
 
     @RequestMapping(value = "/averageDate", method = RequestMethod.GET)
-    public Mono<ResponseEntity<?>> AverageDate(@RequestParam String from, @RequestParam String to, Authentication authentication) {
+    public Mono<ResponseEntity<?>> AverageDate(@RequestParam String from, @RequestParam String to, Authentication authentication,Class type) {
         if (authentication.isAuthenticated()) {
             Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
             long home = Long.valueOf(String.valueOf(obj));
-            List<Average> average = sensorService.getAverageDate(from, to, home);
+            List<Average> average = sensorService.getAverageDate(from, to, home,type);
             return Mono.just(
                     ResponseEntity.ok(average)
             );
@@ -110,11 +110,11 @@ public abstract class SensorController {
     }
 
     @RequestMapping(value = "/averageWeek", method = RequestMethod.GET)
-    public Mono<ResponseEntity<?>> AverageWeek(Authentication authentication) {
+    public Mono<ResponseEntity<?>> AverageWeek(Authentication authentication,Class type) {
         if (authentication.isAuthenticated()) {
             Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
             long home = Long.valueOf(String.valueOf(obj));
-            List<Average>  average = sensorService.getAverageWeek(home);
+            List<Average>  average = sensorService.getAverageWeek(home,type);
             return Mono.just(
                     ResponseEntity.ok(average)
             );
@@ -125,11 +125,11 @@ public abstract class SensorController {
     }
 
     @RequestMapping(value = "/averageDay", method = RequestMethod.GET)
-    public Mono<ResponseEntity<?>> AverageDay(@RequestParam String day, Authentication authentication) {
+    public Mono<ResponseEntity<?>> AverageDay(@RequestParam String day, Authentication authentication,Class type) {
         if (authentication.isAuthenticated()) {
             Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
             long home = Long.valueOf(String.valueOf(obj));
-            Average average = sensorService.getAverageDay(day, home);
+            Average average = sensorService.getAverageDay(day, home,type);
             return Mono.just(
                     ResponseEntity.ok(average)
             );
@@ -140,11 +140,11 @@ public abstract class SensorController {
     }
 
     @RequestMapping(value = "/averageToday", method = RequestMethod.GET)
-    public Mono<ResponseEntity<?>> AverageToday(Authentication authentication) {
+    public Mono<ResponseEntity<?>> AverageToday(Authentication authentication,Class type) {
         if (authentication.isAuthenticated()) {
             Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
             long home = Long.valueOf(String.valueOf(obj));
-            Average average = sensorService.getAverageToday(home);
+            Average average = sensorService.getAverageToday(home,type);
             return Mono.just(
                     ResponseEntity.ok(average)
             );
