@@ -1,13 +1,16 @@
 package com.ies.smartroom.api.service;
 
 import com.ies.smartroom.api.entities.Access;
+import com.ies.smartroom.api.entities.Credential;
 import com.ies.smartroom.api.repositories.AccessRepository;
 import com.ies.smartroom.api.websocket.SocketClient;
+import com.ies.smartroom.api.repositories.CredentialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,6 +23,10 @@ public class AccessService {
     public void notification(String message){
         socket.send(message);
     }
+
+    @Autowired
+    private CredentialRepository credentialRepository;
+
 
     public List<Access> findAll(long home) {
         return accessRepository.findByHome(home);
@@ -57,9 +64,29 @@ public class AccessService {
         return getByDate(from,to,home);
     }
 
-    private Timestamp StringToStamp(String date){
-        String tDate = date +" 00:00:00";
-        return Timestamp.valueOf(tDate);
+    public List<Access> getUnauthorizedAccess(long home){
+        return accessRepository.findUnauthorized(home);
+    }
+
+    public List<Access> getLastUnauthorizedAccess(long home){
+        List <Access> acs = new ArrayList<>();
+        acs.add(
+                getUnauthorizedAccess(home)
+                        .listIterator().next());
+        return acs;
+    }
+
+
+    public Credential SaveCredential(Credential credential) {
+        Credential credentialSave = credentialRepository.save(credential);
+        return credentialSave;
+
+    }
+        private Timestamp StringToStamp(String date){
+            String tDate = date +" 00:00:00";
+            return Timestamp.valueOf(tDate);
+
+
     }
 
 }

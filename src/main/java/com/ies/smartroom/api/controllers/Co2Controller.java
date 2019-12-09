@@ -17,8 +17,8 @@ public class Co2Controller extends SensorController {
 
     @Override
     @RequestMapping(value = "/averageDay", method = RequestMethod.GET)
-    public Mono<ResponseEntity<?>> AverageDay(String day, Authentication authentication,Class type) {
-        return super.AverageDay(day, authentication, Co2.class);
+    public Mono<ResponseEntity<?>> getAverageByDay(String day, Authentication authentication,Class type) {
+        return super.getAverageByDay(day, authentication, Co2.class);
     }
 
     @Override
@@ -27,12 +27,12 @@ public class Co2Controller extends SensorController {
     }
 
     @Override
-    public Mono<ResponseEntity<?>> AverageWeek(Authentication authentication,Class type) {
-        return super.AverageWeek(authentication,Co2.class);
+    public Mono<ResponseEntity<?>> getAverageOfLastWeek(Authentication authentication,Class type) {
+        return super.getAverageOfLastWeek(authentication,Co2.class);
     }
 
     @Override
-    public Mono<ResponseEntity<?>> AverageToday(Authentication authentication,Class type) {
-        return super.AverageToday(authentication,Co2.class);
+    public Mono<ResponseEntity<?>> getAverageOfToday(Authentication authentication,Class type) {
+        return super.getAverageOfToday(authentication,Co2.class);
     }
 }

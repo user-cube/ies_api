@@ -1,14 +1,13 @@
 package com.ies.smartroom.api.controllers;
 
+import com.ies.smartroom.api.entities.Credential;
+import com.ies.smartroom.api.entities.internal.AddCredential;
 import com.ies.smartroom.api.service.AccessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
@@ -32,7 +31,7 @@ public class AccessController {
     }
 
     @RequestMapping(value = "/today", method = RequestMethod.GET)
-    public Mono<ResponseEntity<?>> accessNow(Authentication authentication) {
+    public Mono<ResponseEntity<?>> getAccessOfToday(Authentication authentication) {
         if (authentication.isAuthenticated()) {
             Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
             long home = Long.valueOf(String.valueOf(obj));
@@ -45,7 +44,7 @@ public class AccessController {
     }
 
     @RequestMapping(value = "/getByDateRange", method = RequestMethod.GET)
-    public Mono<ResponseEntity<?>> accessByRange(@RequestParam String from, @RequestParam String to, Authentication authentication) {
+    public Mono<ResponseEntity<?>> getAccessByDateRange(@RequestParam String from, @RequestParam String to, Authentication authentication) {
         if (authentication.isAuthenticated()) {
             Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
             long home = Long.valueOf(String.valueOf(obj));
@@ -58,7 +57,7 @@ public class AccessController {
     }
 
     @RequestMapping(value = "/lastWeek", method = RequestMethod.GET)
-    public Mono<ResponseEntity<?>> AccessLastWeek(Authentication authentication) {
+    public Mono<ResponseEntity<?>> getAccessOfLastWeek(Authentication authentication) {
         if (authentication.isAuthenticated()) {
             Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
             long home = Long.valueOf(String.valueOf(obj));
@@ -71,4 +70,52 @@ public class AccessController {
                 new ResponseEntity<>("Login is Needed", HttpStatus.OK)
         );
     }
+    @RequestMapping(value = "/unauthorizedAccess", method = RequestMethod.GET)
+    public Mono<ResponseEntity> getUnauthorizedAccess(Authentication authentication){
+        if (authentication.isAuthenticated()) {
+            Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
+        long home = Long.valueOf(String.valueOf(obj));
+        List<?> acs = accessService.getUnauthorizedAccess(home);
+        return Mono.just(
+                ResponseEntity.ok(acs)
+            );
+        }
+        return Mono.just(
+                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+        );
+    }
+
+    @RequestMapping(value = "/lastUnauthorizedAccess", method = RequestMethod.GET)
+    public Mono<ResponseEntity> getLastUnauthorizedAccess(Authentication authentication){
+        if (authentication.isAuthenticated()) {
+            Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
+            long home = Long.valueOf(String.valueOf(obj));
+            List<?> acs = accessService.getLastUnauthorizedAccess(home);
+            return Mono.just(
+                    ResponseEntity.ok(acs)
+            );
+        }
+        return Mono.just(
+                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+        );
+    }
+
+    @RequestMapping(value = "/addCredential", method = RequestMethod.POST)
+    public Mono<ResponseEntity> addCredential(Authentication authentication, @RequestBody AddCredential addCcredential){
+        if (authentication.isAuthenticated()) {
+            Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
+            long home = Long.valueOf(String.valueOf(obj));
+            Credential credential = new Credential(null, home, addCcredential.getUser(), addCcredential.getCart_id());
+            Credential saveCredential = accessService.SaveCredential(credential);
+            return Mono.just(
+                    ResponseEntity.ok(saveCredential)
+            );
+        }
+        return Mono.just(
+                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+        );
+    }
+
+
+
 }
