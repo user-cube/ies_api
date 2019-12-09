@@ -20,12 +20,6 @@ public class Receiver {
 
     @Autowired
     private MongoWorker worker;
-    @Autowired
-    private AccessService accessService;
-
-    public static String ACCESS_GRANTED = "Acesso permitido";
-    public static String ACCESS_DENIED = "Acesso negado";
-    private Channel channel;
 
     @Bean
     public ConnectionFactory connectionFactory() {
@@ -33,10 +27,8 @@ public class Receiver {
         connectionFactory.setUri("amqp://rniqsthq:oEncQ4eBhISeQn-BAxkyJ7OHyRfgR9BN@gopher.rmq.cloudamqp.com/rniqsthq");
         connectionFactory.setRequestedHeartBeat(30);
         connectionFactory.setConnectionTimeout(30000);
-        channel = connectionFactory.createConnection().createChannel(true);
         return connectionFactory;
     }
-
 
     @RabbitListener(queues = "gen_data")
     public void processOrder(String data) {
@@ -49,34 +41,7 @@ public class Receiver {
         else if (doc.containsKey("humidity")) {
             worker.insertHumidity(doc);
         } else if (doc.containsKey("origin")) {
-            String response = writeCredentials(doc);
-            try {
-                channel.basicPublish("",
-                        "gen_data",
-                        new AMQP.BasicProperties.Builder().correlationId(java.util.UUID.randomUUID().toString()).build(),
-                        response.getBytes()
-                );
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            worker.insertAccess(doc);
         }
     }
-
-    private String writeCredentials(Document doc) {
-        Credential credential = accessService.checkCredentials(Long.valueOf((String) doc.get("home")), (String) doc.get("cart_id"));
-        String open;
-        if (credential == null) {
-            doc.append("user", null);
-            doc.append("action", ACCESS_DENIED);
-            open = ACCESS_DENIED;
-        } else {
-            doc.append("user", credential.getUser());
-            doc.append("action", ACCESS_GRANTED);
-            open = ACCESS_GRANTED;
-        }
-        worker.insertAccess(doc);
-        return open;
-    }
-
-
 }

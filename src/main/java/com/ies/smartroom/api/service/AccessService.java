@@ -60,24 +60,26 @@ public class AccessService {
         return getByDate(from,to,home);
     }
 
-    private Timestamp StringToStamp(String date){
-        String tDate = date +" 00:00:00";
-        return Timestamp.valueOf(tDate);
-    }
     public List<Access> getUnauthorizedAcess(long home){
         return accessRepository.findLastUnauthorized(home);
     }
 
-    public Credential checkCredentials(long home, String cart_id){
-         ListIterator<Credential> credentialListIterator = credentialRepository.findByCredetialAndHome(home, cart_id).listIterator();
-        if (credentialListIterator.hasNext())return credentialListIterator.next()
-                ;
-        return null;
+
+    public Access getLastUnauthorizedAcess(long home){
+        return getUnauthorizedAcess(home).listIterator().next();
     }
 
-    public Credential SaveCredential(Credential credential){
+
+    public Credential SaveCredential(Credential credential) {
         Credential credentialSave = credentialRepository.save(credential);
         return credentialSave;
+
+    }
+        private Timestamp StringToStamp(String date){
+            String tDate = date +" 00:00:00";
+            return Timestamp.valueOf(tDate);
+
+
     }
 
 }

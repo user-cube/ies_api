@@ -74,6 +74,22 @@ public class AccessController {
                 new ResponseEntity<>("Login is Needed", HttpStatus.OK)
         );
     }
+
+    @RequestMapping(value = "/lastUnauthorizedAcess", method = RequestMethod.GET)
+    public Mono<ResponseEntity> getLastUnauthorizedAcess(Authentication authentication){
+        if (authentication.isAuthenticated()) {
+            Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
+            long home = Long.valueOf(String.valueOf(obj));
+            Object acs = accessService.getLastUnauthorizedAcess(home);
+            return Mono.just(
+                    ResponseEntity.ok(acs)
+            );
+        }
+        return Mono.just(
+                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+        );
+    }
+
     @RequestMapping(value = "/addCredential", method = RequestMethod.POST)
     public Mono<ResponseEntity> addCredential(Authentication authentication, @RequestBody AddCredential addCcredential){
         if (authentication.isAuthenticated()) {
@@ -89,4 +105,7 @@ public class AccessController {
                 new ResponseEntity<>("Login is Needed", HttpStatus.OK)
         );
     }
+
+
+
 }
