@@ -7,11 +7,10 @@ import com.ies.smartroom.api.repositories.CredentialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.HTMLDocument;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 @Service
 public class AccessService {
@@ -60,13 +59,16 @@ public class AccessService {
         return getByDate(from,to,home);
     }
 
-    public List<Access> getUnauthorizedAcess(long home){
-        return accessRepository.findLastUnauthorized(home);
+    public List<Access> getUnauthorizedAccess(long home){
+        return accessRepository.findUnauthorized(home);
     }
 
-
-    public Access getLastUnauthorizedAcess(long home){
-        return getUnauthorizedAcess(home).listIterator().next();
+    public List<Access> getLastUnauthorizedAccess(long home){
+        List <Access> acs = new ArrayList<>();
+        acs.add(
+                getUnauthorizedAccess(home)
+                        .listIterator().next());
+        return acs;
     }
 
 
