@@ -20,6 +20,16 @@ public class AccessController {
     @Autowired
     private AccessService accessService;
 
+    @RequestMapping(value = "/notification", method = RequestMethod.GET)
+    public Mono<ResponseEntity<?>> getAll(Authentication authentication) {
+        if (authentication.isAuthenticated()) {
+            accessService.notification("Hello");
+        }
+        return Mono.just(
+                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+        );
+    }
+
     @RequestMapping(value = "/today", method = RequestMethod.GET)
     public Mono<ResponseEntity<?>> getAccessOfToday(Authentication authentication) {
         if (authentication.isAuthenticated()) {

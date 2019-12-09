@@ -11,4 +11,8 @@ public class Average {
     private String room;
     private String period;
     private Double average;
+
+    public void setPeriod(String period) {
+        this.period = period;
+    }
 }
