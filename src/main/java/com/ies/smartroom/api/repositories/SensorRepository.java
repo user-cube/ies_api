@@ -1,6 +1,7 @@
 package com.ies.smartroom.api.repositories;
 
 import com.ies.smartroom.api.entities.internal.Sensor;
+import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 

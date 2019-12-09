@@ -20,6 +20,16 @@ public class AccessController {
     @Autowired
     private AccessService accessService;
 
+    @RequestMapping(value = "/notification", method = RequestMethod.GET)
+    public Mono<ResponseEntity<?>> getAll(Authentication authentication) {
+        if (authentication.isAuthenticated()) {
+            accessService.notification("Hello");
+        }
+        return Mono.just(
+                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+        );
+    }
+
     @RequestMapping(value = "/today", method = RequestMethod.GET)
     public Mono<ResponseEntity<?>> getAccessOfToday(Authentication authentication) {
         if (authentication.isAuthenticated()) {
@@ -60,12 +70,12 @@ public class AccessController {
                 new ResponseEntity<>("Login is Needed", HttpStatus.OK)
         );
     }
-    @RequestMapping(value = "/unauthorizedAcess", method = RequestMethod.GET)
-    public Mono<ResponseEntity> getUnauthorizedAcess(Authentication authentication){
+    @RequestMapping(value = "/unauthorizedAccess", method = RequestMethod.GET)
+    public Mono<ResponseEntity> getUnauthorizedAccess(Authentication authentication){
         if (authentication.isAuthenticated()) {
             Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
         long home = Long.valueOf(String.valueOf(obj));
-        List<?> acs = accessService.getUnauthorizedAcess(home);
+        List<?> acs = accessService.getUnauthorizedAccess(home);
         return Mono.just(
                 ResponseEntity.ok(acs)
             );
@@ -74,12 +84,28 @@ public class AccessController {
                 new ResponseEntity<>("Login is Needed", HttpStatus.OK)
         );
     }
+
+    @RequestMapping(value = "/lastUnauthorizedAccess", method = RequestMethod.GET)
+    public Mono<ResponseEntity> getLastUnauthorizedAccess(Authentication authentication){
+        if (authentication.isAuthenticated()) {
+            Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
+            long home = Long.valueOf(String.valueOf(obj));
+            List<?> acs = accessService.getLastUnauthorizedAccess(home);
+            return Mono.just(
+                    ResponseEntity.ok(acs)
+            );
+        }
+        return Mono.just(
+                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+        );
+    }
+
     @RequestMapping(value = "/addCredential", method = RequestMethod.POST)
     public Mono<ResponseEntity> addCredential(Authentication authentication, @RequestBody AddCredential addCcredential){
         if (authentication.isAuthenticated()) {
             Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
             long home = Long.valueOf(String.valueOf(obj));
-            Credential credential = new Credential(null, home, addCcredential.getUser(), addCcredential.getCartId());
+            Credential credential = new Credential(null, home, addCcredential.getUser(), addCcredential.getCart_id());
             Credential saveCredential = accessService.SaveCredential(credential);
             return Mono.just(
                     ResponseEntity.ok(saveCredential)
@@ -89,4 +115,7 @@ public class AccessController {
                 new ResponseEntity<>("Login is Needed", HttpStatus.OK)
         );
     }
+
+
+
 }
