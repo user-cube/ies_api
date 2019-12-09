@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class AddCredential {
     private String user;
-    private String cartId;
+    private String cart_id;
 }

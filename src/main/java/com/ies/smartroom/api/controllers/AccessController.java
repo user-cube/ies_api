@@ -60,12 +60,12 @@ public class AccessController {
                 new ResponseEntity<>("Login is Needed", HttpStatus.OK)
         );
     }
-    @RequestMapping(value = "/unauthorizedAcess", method = RequestMethod.GET)
-    public Mono<ResponseEntity> getUnauthorizedAcess(Authentication authentication){
+    @RequestMapping(value = "/unauthorizedAccess", method = RequestMethod.GET)
+    public Mono<ResponseEntity> getUnauthorizedAccess(Authentication authentication){
         if (authentication.isAuthenticated()) {
             Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
         long home = Long.valueOf(String.valueOf(obj));
-        List<?> acs = accessService.getUnauthorizedAcess(home);
+        List<?> acs = accessService.getUnauthorizedAccess(home);
         return Mono.just(
                 ResponseEntity.ok(acs)
             );
@@ -75,12 +75,12 @@ public class AccessController {
         );
     }
 
-    @RequestMapping(value = "/lastUnauthorizedAcess", method = RequestMethod.GET)
-    public Mono<ResponseEntity> getLastUnauthorizedAcess(Authentication authentication){
+    @RequestMapping(value = "/lastUnauthorizedAccess", method = RequestMethod.GET)
+    public Mono<ResponseEntity> getLastUnauthorizedAccess(Authentication authentication){
         if (authentication.isAuthenticated()) {
             Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
             long home = Long.valueOf(String.valueOf(obj));
-            Object acs = accessService.getLastUnauthorizedAcess(home);
+            List<?> acs = accessService.getLastUnauthorizedAccess(home);
             return Mono.just(
                     ResponseEntity.ok(acs)
             );
@@ -95,7 +95,7 @@ public class AccessController {
         if (authentication.isAuthenticated()) {
             Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
             long home = Long.valueOf(String.valueOf(obj));
-            Credential credential = new Credential(null, home, addCcredential.getUser(), addCcredential.getCartId());
+            Credential credential = new Credential(null, home, addCcredential.getUser(), addCcredential.getCart_id());
             Credential saveCredential = accessService.SaveCredential(credential);
             return Mono.just(
                     ResponseEntity.ok(saveCredential)
