@@ -30,10 +30,6 @@ public class Access {
     @Field("action")
     private String action;
 
-    @JsonIgnore
-    public String getTimestamp() {
-        return timestamp;
-    }
 
     public String getDate() {
         return this.timestamp.split(" ")[0];
