@@ -2,12 +2,12 @@ package com.ies.smartroom.api.service;
 
 import com.ies.smartroom.api.entities.Access;
 import com.ies.smartroom.api.entities.Credential;
+import com.ies.smartroom.api.entities.internal.AddCredential;
 import com.ies.smartroom.api.repositories.AccessRepository;
 import com.ies.smartroom.api.repositories.CredentialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,26 +26,30 @@ public class AccessService {
         return accessRepository.findByHome(home);
     }
 
-    public List<Access> getByDate(String date_start,String date_end, long home) {
-
+    public List<Access> getByDay(String day, long home) {
         try {
-            String aux_start = StringToStamp(date_start).toString();
-            String aux_end = StringToStamp(date_end).toString();
-            System.out.println(aux_start+" "+aux_end);
-            return accessRepository.findByDate(home,aux_start,aux_end);
+            return accessRepository.findByHomeAndDate(
+                    home,
+                    startDayToTimeStamp(day),
+                    endDayToTimeStamp(day)
+            );
         } catch (Exception e) {
             return null;
         }
     }
 
     public List<Access> today(long home) {
-        return getByDate(LocalDate.now().toString(),LocalDate.now().plusDays(1).toString(), home);
+        return getByDay(LocalDate.now().toString(), home);
     }
 
     public List<Access> getByDateRange(String from, String to, long home) {
         List<Access> acs;
         try{
-            acs=getByDate(from,to,home);
+            acs = accessRepository.findByHomeAndDate(
+                    home,
+                    startDayToTimeStamp(from),
+                    endDayToTimeStamp(to)
+            );
             return acs;
         } catch (Exception ex){
             return null;
@@ -56,7 +60,7 @@ public class AccessService {
         LocalDate today = LocalDate.now();
         String to = today.toString();
         String from = today.minusDays(7).toString();
-        return getByDate(from,to,home);
+        return getByDateRange(from,to,home);
     }
 
     public List<Access> getUnauthorizedAccess(long home){
@@ -71,17 +75,44 @@ public class AccessService {
         return acs;
     }
 
-
-    public Credential SaveCredential(Credential credential) {
-        Credential credentialSave = credentialRepository.save(credential);
-        return credentialSave;
-
+    public List<Credential> getAllCredentials(long home){
+        return credentialRepository.findByHome(home);
     }
-        private Timestamp StringToStamp(String date){
-            String tDate = date +" 00:00:00";
-            return Timestamp.valueOf(tDate);
 
+    public Credential SaveCredential(long home, AddCredential addCredential) throws Exception {
+        List<Credential> credentials = credentialRepository.findHomeAndByCartId(home, addCredential.getCart_id());
+        if (!credentials.isEmpty()) {
+            throw new Exception("Cart Id already added");
+        }
+        Credential credential = new Credential(null, home, addCredential.getUser(), addCredential.getCart_id());
+        return credentialRepository.save(credential);
+    }
+    public Credential UpdateCredential(long home, AddCredential addCredential) throws Exception {
+        List<Credential> credentials = credentialRepository.findHomeAndByCartId(home, addCredential.getCart_id());
+        if (credentials.isEmpty()) {
+            throw new Exception("Cart Id is not registered");
+        }
+        Credential credential = credentials.listIterator().next();
+        credential.setUser(addCredential.getUser());
+        return credentialRepository.save(credential);
+    }
 
+    public Credential DeleteCredential(long home, String cart_id) throws Exception {
+        List<Credential> credentials = credentialRepository.findHomeAndByCartId(home, cart_id);
+        if (credentials.isEmpty()){
+            throw new Exception("Cart Id is not authorized");
+        }
+        Credential credential = credentials.listIterator().next();
+        credentialRepository.delete(credential);
+        return credential;
+    }
+
+    private String startDayToTimeStamp(String day){
+        return day + " 00:00:00";
+    }
+
+    private String endDayToTimeStamp(String day){
+        return day+" 23:59:59";
     }
 
 }

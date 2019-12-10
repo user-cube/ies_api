@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.repository.Query;
 import java.util.List;
 
 public interface CredentialRepository extends MongoRepository<Credential,String> {
-    @Query(value="{'home':?0,'cart_id':?1 }")
-    List<Credential> findByCredetialAndHome(long home, String cart_id);
+    List<Credential> findByHome(long home);
+    @Query(value="{'home':?0, 'cart_id':'?1'}", sort="{'timestamp':-1}")
+    List<Credential> findHomeAndByCartId(long home, String cartId);
 }
