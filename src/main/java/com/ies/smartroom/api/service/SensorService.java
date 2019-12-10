@@ -18,11 +18,11 @@ public abstract class SensorService {
 
     private SensorRepository sensorRepository;
 
-    @Autowired
     private SensorTemplate sensorTemplate;
 
-    public SensorService(SensorRepository sensorRepository) {
+    public SensorService(SensorRepository sensorRepository,SensorTemplate sensorTemplate) {
         this.sensorRepository = sensorRepository;
+        this.sensorTemplate = sensorTemplate;
     }
 
     public List<?> findAll(long home) {
@@ -82,7 +82,7 @@ public abstract class SensorService {
         return getByDateRange(from, to, home);
     }
 
-    public List<Average> getAverageDate(String from, String to, long home, Class type) {
+    public List<Average> getAverageDate(String from, String to, long home) {
         try {
             LocalDate datefrom=LocalDate.parse(from);
             LocalDate dateto=LocalDate.parse(to);
@@ -90,7 +90,7 @@ public abstract class SensorService {
             if (dateto.isBefore(datefrom))
                 return null;
             while (datefrom.isBefore(dateto)){
-                Average daily = this.getAverageDay(datefrom.toString(),home,type);
+                Average daily = this.getAverageDay(datefrom.toString(),home);
                 if (daily != null)
                     results.add(daily);
                 datefrom=datefrom.plusDays(1);
@@ -102,25 +102,19 @@ public abstract class SensorService {
         }
     }
 
-    public List<Average> getAverageWeek(long home,Class type) {
+    public List<Average> getAverageWeek(long home) {
         LocalDate today = LocalDate.now();
         String to = today.toString();
         String from = today.minusDays(7).toString();
-        return getAverageDate(from, to, home,type);
+        return getAverageDate(from, to, home);
     }
 
-    public Average getAverageDay(String day, long home,Class type) {
+    public Average getAverageDay(String day, long home) {
         try {
             LocalDate localdate = LocalDate.parse(day);
             LocalDate next = localdate.plusDays(1);
             Average result = null;
-            if (type == Co2.class)
-                result=sensorTemplate.getAverageRange((int)home,day+" 00:00:00",next.toString()+" 00:00:00",Co2.class).get(0);
-            else if (type == Temperature.class)
-                result=sensorTemplate.getAverageRange((int)home,day+" 00:00:00",next.toString()+" 00:00:00",Temperature.class).get(0);
-            else if (type == Humidity.class)
-                result=sensorTemplate.getAverageRange((int)home,day+" 00:00:00",next.toString()+" 00:00:00",Humidity.class).get(0);
-
+            result=sensorTemplate.getAverageRange((int)home,day+" 00:00:00",next.toString()+" 00:00:00").get(0);
             result.setPeriod(day);
             return result;
         } catch (Exception ex) {
@@ -128,8 +122,8 @@ public abstract class SensorService {
         }
     }
 
-    public Average getAverageToday(long home,Class type) {
-        return getAverageDay(LocalDate.now().toString(), home,type);
+    public Average getAverageToday(long home) {
+        return getAverageDay(LocalDate.now().toString(), home);
     }
 
     private Map<String, double[]> HashCount(LocalDate from, LocalDate to) {

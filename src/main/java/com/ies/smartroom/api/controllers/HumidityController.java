@@ -20,31 +20,5 @@ public class HumidityController extends SensorController {
     public HumidityController(HumidityService humidityService) {
         super(humidityService);
     }
-
-    @Override
-    @RequestMapping(value = "/averageDay", method = RequestMethod.GET)
-    public Mono<ResponseEntity<?>> getAverageByDay(String day, Authentication authentication, Class type) {
-        return super.getAverageByDay(day, authentication, Humidity.class);
-    }
-
-    @Override
-    @RequestMapping(value = "/averageDate", method = RequestMethod.GET)
-    public Mono<ResponseEntity<?>> AverageDate(String from, String to, Authentication authentication,Class type) {
-        return super.AverageDate(from, to, authentication,Humidity.class);
-    }
-
-    @Override
-    @RequestMapping(value = "/averageWeek", method = RequestMethod.GET)
-    public Mono<ResponseEntity<?>> getAverageOfLastWeek(Authentication authentication,Class type) {
-        return super.getAverageOfLastWeek(authentication,Humidity.class);
-    }
-
-
-
-    @Override
-    @RequestMapping(value = "/averageToday", method = RequestMethod.GET)
-    public Mono<ResponseEntity<?>> getAverageOfToday(Authentication authentication,Class type) {
-        return super.getAverageOfToday(authentication,Humidity.class);
-    }
 }
 

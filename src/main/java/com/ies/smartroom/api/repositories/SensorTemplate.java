@@ -1,10 +1,6 @@
 package com.ies.smartroom.api.repositories;
 
-import com.ies.smartroom.api.entities.Co2;
-import com.ies.smartroom.api.entities.Humidity;
-import com.ies.smartroom.api.entities.Temperature;
 import com.ies.smartroom.api.entities.internal.Average;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -15,23 +11,22 @@ import java.util.Iterator;
 import java.util.List;
 
 @Repository
-public class SensorTemplate {
+public abstract class SensorTemplate {
 
     private final MongoTemplate mongoTemplate;
 
-    @Autowired
     public SensorTemplate(MongoTemplate mongoTemplate){
         this.mongoTemplate=mongoTemplate;
     }
 
-    public List<Average> getAverageRange(int home,String datefrom,String dateto,Class type){
+    public List<Average> getAverageRange(int home,String datefrom,String dateto){
         String search="temp";
         String collection="temperature";
-        if (type == Co2.class){
+        if (this.getClass() == Co2Template.class){
             search="co2(ppm)";
             collection="co2";
         }
-        if (type == Humidity.class) {
+        if (this.getClass() == HumidityTemplate.class) {
             search = "humidity";
             collection = "humidity";
         }
@@ -51,10 +46,6 @@ public class SensorTemplate {
             ret.add((Average) it.next());
         }
         return ret;
-    }
-
-    public List<Average> getAverageCo2(int home,String datefrom,String dateto){
-        return this.getAverageRange(home,datefrom,dateto, Co2.class);
     }
 
 }
