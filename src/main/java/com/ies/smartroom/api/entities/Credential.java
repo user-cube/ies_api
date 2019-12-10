@@ -21,5 +21,5 @@ public class Credential {
     @Field("user")
     private String user;
     @Field("cart_id")
-    private String cartId;
+    private String cart_id;
 }
