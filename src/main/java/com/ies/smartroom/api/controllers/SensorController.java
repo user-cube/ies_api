@@ -39,9 +39,9 @@ public abstract class SensorController {
         if (authentication.isAuthenticated()) {
             Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
             long home = Long.valueOf(String.valueOf(obj));
-            List<?> co2s = sensorService.getByDay(day, home);
+            List<?> sensors = sensorService.getByDay(day, home);
             return Mono.just(
-                    ResponseEntity.ok(co2s)
+                    ResponseEntity.ok(sensors)
             );
         }
         return Mono.just(
@@ -54,9 +54,9 @@ public abstract class SensorController {
         if (authentication.isAuthenticated()) {
             Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
             long home = Long.valueOf(String.valueOf(obj));
-            List<?> co2s = sensorService.getNow(home);
+            List<?> sensors = sensorService.getNow(home);
             return Mono.just(
-                    ResponseEntity.ok(co2s)
+                    ResponseEntity.ok(sensors)
             );
         }
         return Mono.just(
@@ -69,9 +69,9 @@ public abstract class SensorController {
         if (authentication.isAuthenticated()) {
             Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
             long home = Long.valueOf(String.valueOf(obj));
-            List<?> co2s = sensorService.getByDateRange(from, to, home);
+            List<?> sensors = sensorService.getByDateRange(from, to, home);
             return Mono.just(
-                    ResponseEntity.ok(co2s)
+                    ResponseEntity.ok(sensors)
             );
         }
         return Mono.just(
@@ -84,9 +84,9 @@ public abstract class SensorController {
         if (authentication.isAuthenticated()) {
             Object obj = ((HashMap<String, Object>) authentication.getPrincipal()).get("home");
             long home = Long.valueOf(String.valueOf(obj));
-            List<?> co2s = sensorService.getLastWeek(home);
+            List<?> sensors = sensorService.getLastWeek(home);
             return Mono.just(
-                    ResponseEntity.ok(co2s)
+                    ResponseEntity.ok(sensors)
             );
         }
         return Mono.just(
