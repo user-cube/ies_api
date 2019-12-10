@@ -10,6 +10,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 
-public class CartID {
+public class RemoveCredential {
     private String cart_id;
 }

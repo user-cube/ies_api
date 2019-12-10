@@ -29,7 +29,7 @@ public abstract class SensorController {
             );
         }
         return Mono.just(
-                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+                new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
     @RequestMapping(value = "/getByDay", method = RequestMethod.GET)
@@ -43,7 +43,7 @@ public abstract class SensorController {
             );
         }
         return Mono.just(
-                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+                new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
     @RequestMapping(value = "/today", method = RequestMethod.GET)
@@ -57,7 +57,7 @@ public abstract class SensorController {
             );
         }
         return Mono.just(
-                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+                new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
 
@@ -72,7 +72,7 @@ public abstract class SensorController {
             );
         }
         return Mono.just(
-                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+                new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
 
@@ -87,7 +87,7 @@ public abstract class SensorController {
             );
         }
         return Mono.just(
-                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+                new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
 
@@ -102,7 +102,7 @@ public abstract class SensorController {
             );
         }
         return Mono.just(
-                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+                new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
 
@@ -117,7 +117,7 @@ public abstract class SensorController {
             );
         }
         return Mono.just(
-                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+                new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
 
@@ -132,7 +132,7 @@ public abstract class SensorController {
             );
         }
         return Mono.just(
-                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+                new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
     @RequestMapping(value = "/averageToday", method = RequestMethod.GET)
@@ -146,7 +146,7 @@ public abstract class SensorController {
             );
         }
         return Mono.just(
-                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+                new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
 

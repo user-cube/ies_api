@@ -1,4 +1,4 @@
-package com.ies.smartroom.api.authentication.configuration;
+package com.ies.smartroom.api.authentication.swagger;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.config.CorsRegistry;
