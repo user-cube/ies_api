@@ -1,6 +1,7 @@
 package com.ies.smartroom.api.service;
 
 import com.ies.smartroom.api.entities.Co2;
+import com.ies.smartroom.api.entities.Humidity;
 import com.ies.smartroom.api.entities.Temperature;
 import com.ies.smartroom.api.entities.internal.Average;
 import com.ies.smartroom.api.entities.internal.Sensor;
@@ -88,7 +89,6 @@ public abstract class SensorService {
             List<Average> results=new ArrayList<>();
             if (dateto.isBefore(datefrom))
                 return null;
-
             while (datefrom.isBefore(dateto)){
                 Average daily = this.getAverageDay(datefrom.toString(),home,type);
                 if (daily != null)
@@ -114,11 +114,13 @@ public abstract class SensorService {
             LocalDate localdate = LocalDate.parse(day);
             LocalDate next = localdate.plusDays(1);
             Average result = null;
-            if (type == Co2.class){
-                result=sensorTemplate.getAverageCo2((int)home,day+" 00:00:00",next.toString()+" 00:00:00").get(0);
-            }
+            if (type == Co2.class)
+                result=sensorTemplate.getAverageRange((int)home,day+" 00:00:00",next.toString()+" 00:00:00",Co2.class).get(0);
             else if (type == Temperature.class)
-                result=sensorTemplate.getAverageTemp((int)home,day+" 00:00:00",next.toString()+" 00:00:00").get(0);
+                result=sensorTemplate.getAverageRange((int)home,day+" 00:00:00",next.toString()+" 00:00:00",Temperature.class).get(0);
+            else if (type == Humidity.class)
+                result=sensorTemplate.getAverageRange((int)home,day+" 00:00:00",next.toString()+" 00:00:00",Humidity.class).get(0);
+
             result.setPeriod(day);
             return result;
         } catch (Exception ex) {

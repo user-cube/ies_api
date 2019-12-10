@@ -1,6 +1,5 @@
 package com.ies.smartroom.api.controllers;
 
-import com.ies.smartroom.api.entities.Co2;
 import com.ies.smartroom.api.entities.Temperature;
 import com.ies.smartroom.api.service.TemperatureService;
 import org.springframework.beans.factory.annotation.Autowired;

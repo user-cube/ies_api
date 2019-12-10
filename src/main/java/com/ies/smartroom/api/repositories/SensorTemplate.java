@@ -1,6 +1,7 @@
 package com.ies.smartroom.api.repositories;
 
 import com.ies.smartroom.api.entities.Co2;
+import com.ies.smartroom.api.entities.Humidity;
 import com.ies.smartroom.api.entities.Temperature;
 import com.ies.smartroom.api.entities.internal.Average;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,10 @@ public class SensorTemplate {
             search="co2(ppm)";
             collection="co2";
         }
+        if (type == Humidity.class) {
+            search = "humidity";
+            collection = "humidity";
+        }
         MatchOperation matchOp = Aggregation.match(new Criteria().andOperator(
                 Criteria.where("home").is(home),
                 Criteria.where("timestamp").gt(datefrom),
@@ -50,10 +55,6 @@ public class SensorTemplate {
 
     public List<Average> getAverageCo2(int home,String datefrom,String dateto){
         return this.getAverageRange(home,datefrom,dateto, Co2.class);
-    }
-
-    public List<Average> getAverageTemp(int home,String datefrom,String dateto){
-        return this.getAverageRange(home,datefrom,dateto, Temperature.class);
     }
 
 }
