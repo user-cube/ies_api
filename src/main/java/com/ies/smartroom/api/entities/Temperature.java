@@ -7,15 +7,15 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
-@Data @ToString @AllArgsConstructor
-@Document(collection="temperature")
+@Data
+@ToString
+@AllArgsConstructor
+@Document(collection = "temperature")
 public class Temperature implements Sensor {
 
-    @Id @JsonIgnore
+    @Id
+    @JsonIgnore
     private String id;
     @Field("home")
     private long home;
@@ -26,16 +26,17 @@ public class Temperature implements Sensor {
     @Field("temp")
     private double temp;
 
-    public String getDate(){
+    public String getDate() {
         return this.timestamp.split(" ")[0];
     }
 
-    @Override @JsonIgnore
+    @Override
+    @JsonIgnore
     public double getValue() {
         return this.temp;
     }
 
-    public String getTime(){
+    public String getTime() {
         return this.timestamp.split(" ")[1];
     }
 }

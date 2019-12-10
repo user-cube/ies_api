@@ -2,7 +2,7 @@ package com.ies.smartroom.api.controllers;
 
 import com.ies.smartroom.api.entities.Credential;
 import com.ies.smartroom.api.entities.internal.AddCredential;
-import com.ies.smartroom.api.entities.internal.CartID;
+import com.ies.smartroom.api.entities.internal.RemoveCredential;
 import com.ies.smartroom.api.service.AccessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,7 @@ public class AccessController {
             );
         }
         return Mono.just(
-                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+                new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
 
@@ -42,7 +42,7 @@ public class AccessController {
             return Mono.just(ResponseEntity.ok(acs));
         }
         return Mono.just(
-                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+                new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
 
@@ -54,7 +54,7 @@ public class AccessController {
             return Mono.just(ResponseEntity.ok(acs));
         }
         return Mono.just(
-                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+                new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
 
@@ -68,7 +68,7 @@ public class AccessController {
             );
         }
         return Mono.just(
-                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+                new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
 
@@ -82,7 +82,7 @@ public class AccessController {
             );
         }
         return Mono.just(
-                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+                new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
 
@@ -96,7 +96,7 @@ public class AccessController {
             );
         }
         return Mono.just(
-                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+                new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
 
@@ -111,7 +111,7 @@ public class AccessController {
 
         }
         return Mono.just(
-                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+                new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
 
@@ -131,7 +131,7 @@ public class AccessController {
             }
         }
         return Mono.just(
-                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+                new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
 
@@ -153,11 +153,11 @@ public class AccessController {
             }
         }
         return Mono.just(
-                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+                new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
     @RequestMapping(value = "/deleteCredential", method = RequestMethod.DELETE)
-    public Mono<ResponseEntity> deleteCredential(Authentication authentication, @RequestBody CartID cart_id) {
+    public Mono<ResponseEntity> deleteCredential(Authentication authentication, @RequestBody RemoveCredential cart_id) {
         if (authentication.isAuthenticated()) {
             long home = getAuthenticationHome(authentication);
             try {
@@ -172,7 +172,7 @@ public class AccessController {
             }
         }
         return Mono.just(
-                new ResponseEntity<>("Login is Needed", HttpStatus.OK)
+                new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
 
