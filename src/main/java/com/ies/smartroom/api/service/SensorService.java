@@ -37,10 +37,10 @@ public abstract class SensorService {
     }
 
     public List<?> getByDateRange(String from, String to, long home) {
-        try{
-            String start =  startDayToTimeStamp(from);
+        try {
+            String start = startDayToTimeStamp(from);
             String end = endDayToTimeStamp(to);
-            List t =  sensorRepository.findByHomeAndRange(
+            List t = sensorRepository.findByHomeAndRange(
                     home,
                     start,
                     end);
@@ -57,7 +57,7 @@ public abstract class SensorService {
         return getByDateRange(from, to, home);
     }
 
-                                            /*     Average           */
+    /*     Average           */
 
     public Average getAverageDay(String day, long home) {
         try {
@@ -73,7 +73,7 @@ public abstract class SensorService {
                 avg += sensorNext.getValue();
             }
             if (sensorNext == null || avg == 0) {
-                return null;
+                return new Average(home, null, day, null);
             }
             return new Average(sensorNext.getHome(), sensorNext.getRoom(), day, avg/count);
         } catch (Exception ex) {
@@ -119,11 +119,11 @@ public abstract class SensorService {
         return getAverageRange(from, to, home);
     }
 
-    private String endDayToTimeStamp(String day){
-        return day+" 23:59:59";
+    private String endDayToTimeStamp(String day) {
+        return day + " 23:59:59";
     }
 
-    private String startDayToTimeStamp(String day){
+    private String startDayToTimeStamp(String day) {
         return day + " 00:00:00";
     }
 }
