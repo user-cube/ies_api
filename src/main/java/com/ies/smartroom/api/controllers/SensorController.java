@@ -1,6 +1,7 @@
 package com.ies.smartroom.api.controllers;
 
 import com.ies.smartroom.api.entities.internal.Average;
+import com.ies.smartroom.api.entities.internal.Sensor;
 import com.ies.smartroom.api.service.SensorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,8 @@ public abstract class SensorController {
     public SensorController(SensorService sensorService) {
         this.sensorService = sensorService;
     }
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public Mono<ResponseEntity<?>> getAll(Authentication authentication) {
         if (authentication.isAuthenticated()) {
 
@@ -32,8 +34,8 @@ public abstract class SensorController {
                 new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
-    @RequestMapping(value = "/getByDay", method = RequestMethod.GET)
-    public Mono<ResponseEntity<?>> getAllByDay(@RequestParam String day, Authentication authentication) {
+    @RequestMapping(value = "/{day}", method = RequestMethod.GET)
+    public Mono<ResponseEntity<?>> getAllByDay(@PathVariable String day, Authentication authentication) {
         if (authentication.isAuthenticated()) {
 
             long home = getAuthenticationHome(authentication);
@@ -61,7 +63,7 @@ public abstract class SensorController {
         );
     }
 
-    @RequestMapping(value = "/getByDateRange", method = RequestMethod.GET)
+    @RequestMapping(value = "/", params = {"from", "to"}, method = RequestMethod.GET)
     public Mono<ResponseEntity<?>> GetAllByDateRange(@RequestParam String from, @RequestParam String to, Authentication authentication) {
         if (authentication.isAuthenticated()) {
 
@@ -76,7 +78,7 @@ public abstract class SensorController {
         );
     }
 
-    @RequestMapping(value = "/lastWeek", method = RequestMethod.GET)
+    @RequestMapping(value = "/week", method = RequestMethod.GET)
     public Mono<ResponseEntity<?>> getAllOfLastWeek(Authentication authentication) {
         if (authentication.isAuthenticated()) {
 
@@ -91,7 +93,7 @@ public abstract class SensorController {
         );
     }
 
-    @RequestMapping(value = "/averageDate", method = RequestMethod.GET)
+    @RequestMapping(value = "/average", params = {"from", "to"}, method = RequestMethod.GET)
     public Mono<ResponseEntity<?>> getAverageByDate(@RequestParam String from, @RequestParam String to, Authentication authentication) {
         if (authentication.isAuthenticated()) {
 
@@ -106,7 +108,7 @@ public abstract class SensorController {
         );
     }
 
-    @RequestMapping(value = "/averageWeek", method = RequestMethod.GET)
+    @RequestMapping(value = "/average/week", method = RequestMethod.GET)
     public Mono<ResponseEntity<?>> getAverageOfLastWeek(Authentication authentication) {
         if (authentication.isAuthenticated()) {
 
@@ -121,8 +123,8 @@ public abstract class SensorController {
         );
     }
 
-    @RequestMapping(value = "/averageDay", method = RequestMethod.GET)
-    public Mono<ResponseEntity<?>> getAverageByDay(@RequestParam String day, Authentication authentication) {
+    @RequestMapping(value = "/average/{day}", method = RequestMethod.GET)
+    public Mono<ResponseEntity<?>> getAverageByDay(@PathVariable String day, Authentication authentication) {
         if (authentication.isAuthenticated()) {
 
             long home = getAuthenticationHome(authentication);
@@ -135,7 +137,7 @@ public abstract class SensorController {
                 new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
-    @RequestMapping(value = "/averageToday", method = RequestMethod.GET)
+    @RequestMapping(value = "/average/today", method = RequestMethod.GET)
     public Mono<ResponseEntity<?>> getAverageOfToday(Authentication authentication) {
         if (authentication.isAuthenticated()) {
 

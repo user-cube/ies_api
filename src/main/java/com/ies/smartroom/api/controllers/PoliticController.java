@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
-import java.util.List;
 
 @RestController
 @RequestMapping("/politic")
@@ -24,7 +23,7 @@ public class PoliticController {
     @Autowired
     private PoliticService politicService;
 
-    @RequestMapping(value = "/getPolitic", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public Mono<ResponseEntity> getHomePolitic(Authentication authentication) {
         if (authentication.isAuthenticated()) {
             long home = getAuthenticationHome(authentication);
@@ -38,7 +37,7 @@ public class PoliticController {
         );
     }
 
-    @RequestMapping(value = "/addPolitic", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public Mono<ResponseEntity> addHomePolitic(Authentication authentication, @RequestBody AddPolitic addPolitic) {
         if (authentication.isAuthenticated()) {
             long home = getAuthenticationHome(authentication);
@@ -58,7 +57,7 @@ public class PoliticController {
         );
     }
 
-    @RequestMapping(value = "/updatePolitic", method = RequestMethod.PUT)
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
     public Mono<ResponseEntity> updateHomePolitic(Authentication authentication, @RequestBody AddPolitic addPolitic) {
         if (authentication.isAuthenticated()) {
             long home = getAuthenticationHome(authentication);
@@ -77,7 +76,7 @@ public class PoliticController {
                 new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
-    @RequestMapping(value = "/deletePolitic", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/", method = RequestMethod.DELETE)
     public Mono<ResponseEntity> deleteHomePolitic(Authentication authentication) {
         if (authentication.isAuthenticated()) {
             long home = getAuthenticationHome(authentication);

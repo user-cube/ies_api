@@ -21,13 +21,25 @@ public class AccessController {
     @Autowired
     private AccessService accessService;
 
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public Mono<ResponseEntity<?>> getAll(Authentication authentication) {
         if (authentication.isAuthenticated()) {
             long home = getAuthenticationHome(authentication);
             return Mono.just(
                     ResponseEntity.ok(accessService.findAll(home))
             );
+        }
+        return Mono.just(
+                new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
+        );
+    }
+
+    @RequestMapping(value = "/{day}", method = RequestMethod.GET)
+    public Mono<ResponseEntity<?>> getAccessOfToday(@PathVariable String day, Authentication authentication) {
+        if (authentication.isAuthenticated()) {
+            long home = getAuthenticationHome(authentication);
+            List<?> acs = accessService.getByDay(day, home);
+            return Mono.just(ResponseEntity.ok(acs));
         }
         return Mono.just(
                 new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
@@ -46,7 +58,7 @@ public class AccessController {
         );
     }
 
-    @RequestMapping(value = "/getByDateRange", method = RequestMethod.GET)
+    @RequestMapping(value = "/", params = {"from", "to"}, method = RequestMethod.GET)
     public Mono<ResponseEntity<?>> getAccessByDateRange(@RequestParam String from, @RequestParam String to, Authentication authentication) {
         if (authentication.isAuthenticated()) {
             long home = getAuthenticationHome(authentication);
@@ -58,7 +70,7 @@ public class AccessController {
         );
     }
 
-    @RequestMapping(value = "/lastWeek", method = RequestMethod.GET)
+    @RequestMapping(value = "/week", method = RequestMethod.GET)
     public Mono<ResponseEntity<?>> getAccessOfLastWeek(Authentication authentication) {
         if (authentication.isAuthenticated()) {
             long home = getAuthenticationHome(authentication);
@@ -72,7 +84,7 @@ public class AccessController {
         );
     }
 
-    @RequestMapping(value = "/unauthorizedAccess", method = RequestMethod.GET)
+    @RequestMapping(value = "/unauthorized", method = RequestMethod.GET)
     public Mono<ResponseEntity> getUnauthorizedAccess(Authentication authentication) {
         if (authentication.isAuthenticated()) {
             long home = getAuthenticationHome(authentication);
@@ -86,7 +98,7 @@ public class AccessController {
         );
     }
 
-    @RequestMapping(value = "/lastUnauthorizedAccess", method = RequestMethod.GET)
+    @RequestMapping(value = "/unauthorized/last", method = RequestMethod.GET)
     public Mono<ResponseEntity> getLastUnauthorizedAccess(Authentication authentication) {
         if (authentication.isAuthenticated()) {
             long home = getAuthenticationHome(authentication);
@@ -100,7 +112,7 @@ public class AccessController {
         );
     }
 
-    @RequestMapping(value = "/getCredentials", method = RequestMethod.GET)
+    @RequestMapping(value = "/credential", method = RequestMethod.GET)
     public Mono<ResponseEntity> getAuthorizedCredentials(Authentication authentication) {
         if (authentication.isAuthenticated()) {
             long home = getAuthenticationHome(authentication);
@@ -115,7 +127,7 @@ public class AccessController {
         );
     }
 
-    @RequestMapping(value = "/addCredential", method = RequestMethod.POST)
+    @RequestMapping(value = "/credential", method = RequestMethod.POST)
     public Mono<ResponseEntity> addCredential(Authentication authentication, @RequestBody AddCredential addCcredential) {
         if (authentication.isAuthenticated()) {
             long home = getAuthenticationHome(authentication);
@@ -137,7 +149,7 @@ public class AccessController {
 
 
 
-    @RequestMapping(value = "/updateCredential", method = RequestMethod.PUT)
+    @RequestMapping(value = "/credential", method = RequestMethod.PUT)
     public Mono<ResponseEntity> updateCredential(Authentication authentication, @RequestBody AddCredential AddCredential) {
         if (authentication.isAuthenticated()) {
             long home = getAuthenticationHome(authentication);
@@ -156,7 +168,7 @@ public class AccessController {
                 new ResponseEntity<>("Login is Needed", HttpStatus.UNAUTHORIZED)
         );
     }
-    @RequestMapping(value = "/deleteCredential", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/credential", method = RequestMethod.DELETE)
     public Mono<ResponseEntity> deleteCredential(Authentication authentication, @RequestBody RemoveCredential cart_id) {
         if (authentication.isAuthenticated()) {
             long home = getAuthenticationHome(authentication);
