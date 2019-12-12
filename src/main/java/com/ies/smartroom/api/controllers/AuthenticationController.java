@@ -44,21 +44,7 @@ public class AuthenticationController {
         }
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public Mono<ResponseEntity<?>> logout(Authentication authentication) {
-        if (authentication.isAuthenticated()) {
-            CredentialsdAuthenticationToken auth =
-                    new CredentialsdAuthenticationToken(
-                            authentication.getPrincipal(),
-                            authentication.getCredentials());
-            auth.eraseCredentials();
-            return Mono.just(ResponseEntity.ok("Successful Logout"));
-        }
-        return Mono.just(
-                new ResponseEntity<>("Unauthenticated", HttpStatus.UNAUTHORIZED)
-        );
-    }
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ADMIN')")
     public Mono<ResponseEntity<?>> listUsers() {
         return Mono.just(
