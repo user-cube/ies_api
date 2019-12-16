@@ -24,7 +24,8 @@ public class Receiver {
     @Bean
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
-        connectionFactory.setUri("amqp://rniqsthq:oEncQ4eBhISeQn-BAxkyJ7OHyRfgR9BN@gopher.rmq.cloudamqp.com/rniqsthq");
+        connectionFactory.setUri("deti-engsoft-02.ua.pt");
+        connectionFactory.setPort(5672);
         connectionFactory.setRequestedHeartBeat(30);
         connectionFactory.setConnectionTimeout(30000);
         return connectionFactory;

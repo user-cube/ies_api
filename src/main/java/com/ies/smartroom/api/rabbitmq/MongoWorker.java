@@ -35,7 +35,7 @@ public class MongoWorker {
     private MongoCollection<Document> humidity;
 
     public MongoWorker(){
-        MongoClientURI uri = new MongoClientURI("mongodb://smart_user:W2Nx6xmAtnzK2Zxa@cluster0-shard-00-00-wq6zj.mongodb.net:27017,cluster0-shard-00-01-wq6zj.mongodb.net:27017,cluster0-shard-00-02-wq6zj.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority");
+        MongoClientURI uri = new MongoClientURI("deti-engsoft-02.ua.pt:27017");
         MongoClient mongoClient = new MongoClient(uri);
         MongoDatabase database = mongoClient.getDatabase("smartroom");
         temperature = database.getCollection("temperature");
