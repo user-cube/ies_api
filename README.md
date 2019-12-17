@@ -110,7 +110,7 @@ Para o backlog optamos pelo Pivotal Tracker o mesmo pode ser acedido <a href="ht
 ### Documentos
 Os documentos do projeto podem ser encontrados na pasta da Google Drive, contém sempre a versão mais atualizada dos mesmos uma vez que a ferramenta definida para a escrita de relatórios foi o Google Docs, a pasta encontra-se <a href="https://drive.google.com/drive/folders/1Q3gWHAxaBDn8KbCLEB_KCepWUc4GiT_G?usp=sharing">aqui</a>.
 
-### Contrução 
+### Arquitetura 
 Foram contruidos 5 modulos para a Repositório, Entidades, Serviços, Autenticação, Controlos, que se comunicam entre si para o funcionamento da API. Para além destes módulos, existe um para tratar da documentação e configuração e um para receber e armazenar as mensagens provenientes do rabbitmq. 
 <img src="presentation/architecture.PNG">
 
@@ -118,7 +118,7 @@ Foram contruidos 5 modulos para a Repositório, Entidades, Serviços, Autentica�
 #### A comunicação entre os módulos pode ser vista aqui:
 <img src="presentation/modules.PNG">
 
-### Sensores 
+### Caminhos da API 
 A API pode ser dividida em 3 categorias. Autenticação, Coleta de Informações e Configuração.
 
 * **Autenticação:** É responsavel pela autenticação do utiliador e retornar um JWT Token com a informação da casa, email e nome do utilizador. Este token é enviado de volta a API para assegurar que o pedido é feito por um utilizador válido.
