@@ -88,7 +88,7 @@ Para obtermos o JWT temos de nos conectar ao endpoint `/login`. Um dos utilizado
 
 <img src="presentation/login.png">
 
-### Construção 
+### Arquitetura 
 Foram construídos 5 módulos para a Repositório, Entidades, Serviços, Autenticação, Controlos, que se comunicam entre si para o funcionamento da API. 
 Para além destes módulos, existe um para tratar da documentação e configuração e um para receber e armazenar as mensagens provenientes do RabbitMQ. 
 <img src="presentation/architecture.PNG">
@@ -98,7 +98,7 @@ Para além destes módulos, existe um para tratar da documentação e configura�
 A comunicação dos módulos pode ser representado de forma esquemática por:
 <img src="presentation/modules.PNG">
 
-### Sensores 
+### Caminhos da API 
 A API pode ser dividida em 3 categorias. Autenticação, Recolha de Informações e Configuração.
 
 * **Autenticação:** É responsável pela autenticação do utilizador e retornar um JWT Token com a informação da casa, email e nome do utilizador. O token sempre que existe pedidos com a API tem de ser passado de modo a garantir a integridade e segurança do sistema.
