@@ -77,7 +77,7 @@ Os documentos do projeto podem ser encontrados na pasta da Google Drive, contém
 Este repositório tem integração CI/CD. A parte de CI é tratada pelo Github Actions e a parte de CD é tratada pelo Heroku. 
 
 A documentação da API foi feita utilizado o swagger que e pode ser acedida atrávez do link: [documentação](https://iesapi.herokuapp.com/swagger-ui.html#/)
-<img src="presentation/swagger.png">
+<img src="presentation/swagger.PNG">
 
 ### Deploy do protótipo
 O deploy do protótipo pode ser encontrado <a href='deti-engsoft-02.ua.pt:3000'>aqui</a>.<br>
@@ -112,11 +112,11 @@ Os documentos do projeto podem ser encontrados na pasta da Google Drive, contém
 
 ### Contrução 
 Foram contruidos 5 modulos para a Repositório, Entidades, Serviços, Autenticação, Controlos, que se comunicam entre si para o funcionamento da API. Para além destes módulos, existe um para tratar da documentação e configuração e um para receber e armazenar as mensagens provenientes do rabbitmq. 
-<img src="presentation/architecture.png">
+<img src="presentation/architecture.PNG">
 
 
 #### A comunicação entre os módulos pode ser vista aqui:
-<img src="presentation/modules.png"
+<img src="presentation/modules.PNG"
 
 ### Sensores 
 A API pode ser dividida em 3 categorias. Autenticação, Coleta de Informações e Configuração.
