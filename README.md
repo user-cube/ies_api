@@ -116,7 +116,7 @@ Foram contruidos 5 modulos para a Repositório, Entidades, Serviços, Autentica�
 
 
 #### A comunicação entre os módulos pode ser vista aqui:
-<img src="presentation/modules.PNG"
+<img src="presentation/modules.PNG">
 
 ### Sensores 
 A API pode ser dividida em 3 categorias. Autenticação, Coleta de Informações e Configuração.
